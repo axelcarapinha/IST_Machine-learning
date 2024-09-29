@@ -1,0 +1,123 @@
+\documentclass{article}
+\usepackage{amsmath}  % For math symbols
+\usepackage{array}
+
+\title{Machine Learning Report}
+\author{}
+\date{}
+\begin{document}
+
+\maketitle
+\begin{center}
+    \textbf{Homework 2 - Bayesian Learning}
+\end{center}
+
+\section{Bayesian Classifier}
+\subsection{Exercise a)}
+We will first estimate the priors.
+
+$$p(Class = A) = \frac{4}{8} = \frac{1}{2}$$
+$$p(Class = B) = \frac{4}{8} = \frac{1}{2}$$
+
+Now, to estimate the likelihoods, we must consider each distribution as independent (Naive Bayes's assumption), so it will be:
+\\
+\begin{tabular}{|c|c|c|}
+    \hline
+    & \( p(x_1 \mid \text{Class} = A) \) & \( p(x_1 \mid \text{Class} = B) \) \\ 
+    \hline
+    \( \mu \) & 20 & 20 \\
+    \hline
+    \( \sigma \) & 20 & 20 \\
+    \hline
+\end{tabular}
+\\
+\\
+Now, for the query vector:
+\begin{align*}
+    p(\text{Class} = A \mid x_1 = 1, x_2 = 2) 
+    &= \frac{p(\text{Class} = A) \cdot p(x_1 = 1, x_2 = 2 \mid \text{Class} = A)}{p(x_1 = 1, x_2 = 2)} \\
+    &= \frac{p(\text{Class} = A) \cdot p(x_1 = 1 \mid \text{Class} = A) \cdot p(x_2 = 2 \mid \text{Class} = A)}{p(x_1 = 1, x_2 = 2)} \\
+    &= \frac{\frac{1}{2} \cdot N(1 \mid \mu = 1.25, \sigma = 0.5508) \cdot N(2 \mid \mu = 1.2, \sigma = 0.6055)}{p(x_1 = 1, x_2 = 2)} \\
+    &= \frac{0.0899}{p(x_1 = 1, x_2 = 2)}
+\end{align*}
+
+
+\begin{align*}
+    p(\text{Class} = B \mid x_1 = 1, x_2 = 2) 
+    &= \frac{p(\text{Class} = B) \cdot p(x_1 = 1, x_2 = 2 \mid \text{Class} = B)}{p(x_1 = 1, x_2 = 2)} \\
+    &= \frac{p(\text{Class} = B) \cdot p(x_1 = 1 \mid \text{Class} = B) \cdot p(x_2 = 2 \mid \text{Class} = B)}{p(x_1 = 1, x_2 = 2)} \\
+    &= \frac{\frac{1}{2} \cdot N(1 \mid \mu = 2.7500\sigma = 0.9574) \cdot N(2 \mid \mu = 0.5500, \sigma = 0.6403)}{p(x_1 = 1, x_2 = 2)} \\
+    &= \frac{0.0019}{p(x_1 = 1, x_2 = 2)}
+\end{align*}
+\\
+By comparing the numerators, we conclude that:
+$$p(\text{Class} = A \mid x_1 = 1, x_2 = 2) > p(\text{Class} = B \mid x_1 = 1, x_2 = 2)$$
+\\
+Hence, the most probable class for the query vector $$x = (1, 2)\textsuperscript{T}$$ is class A.
+\newpage
+
+
+
+\subsection{Exercise b)}
+As before, the priors have the following probabilities:
+
+$$p(Class = A) = \frac{1}{2}$$
+$$p(Class = B) = \frac{1}{2}$$
+
+Now, to find the parameters of the two class conditional 2-d Gaussians that model the likelihoods:
+\\
+\\
+\begin{tabular}{|c|c|c|}
+    \hline
+    & \( p(x_1, x_2 \mid \text{Class} = A) \) & \( p(x_1, x_2 \mid \text{Class} = B) \) \\ 
+    \hline
+    \( \mu \) & $\begin{pmatrix} 1.25 \\ 1.20 \end{pmatrix}$ & $\begin{pmatrix} 2.75 \\  0.55 \end{pmatrix}$ \\
+    \hline
+    \( \sum \) & $\begin{pmatrix} 0.3033 & 0.3267 \\ 0.3267 & 0.36667 \end{pmatrix}$ & $\begin{pmatrix} 0.9166 & 0.2500 \\ 0.2500 & 0.4100 \end{pmatrix}$ \\
+    \hline
+\end{tabular}
+\\
+\\
+Now, calculating the posteriors:
+\begin{align*}
+    p(\text{Class} = A \mid x_1 = 1, x_2 = 2) 
+    &= \frac{p(\text{Class} = A) \cdot p(x_1 = 1, x_2 = 2 \mid \text{Class} = A)}{p(x_1 = 1, x_2 = 2)} \\
+    &= \frac{p(\text{Class} = A) \cdot p(x_1 = 1 \mid \text{Class} = A) \cdot p(x_2 = 2 \mid \text{Class} = A)}{p(x_1 = 1, x_2 = 2)} \\
+    &= \frac{\frac{1}{2} \cdot N(
+        \begin{pmatrix}1 \\ 2\end{pmatrix} \mid
+        \mu = \begin{pmatrix}1.25 \\ 1.20\end{pmatrix},
+        \sum = \begin{pmatrix}0.3033 & 0.3267 \\ 0.3267 & 0.36667 \end{pmatrix}
+    )}{p(x_1 = 1, x_2 = 2)} \\
+    &= \frac{4.3346 \times 10\textsuperscript{-17}}{p(x_1 = 1, x_2 = 2)}
+\end{align*}
+
+\begin{align*}
+    p(\text{Class} = B \mid x_1 = 1, x_2 = 2) 
+    &= \frac{p(\text{Class} = B) \cdot p(x_1 = 1, x_2 = 2 \mid \text{Class} = B)}{p(x_1 = 1, x_2 = 2)} \\
+    &= \frac{p(\text{Class} = B) \cdot p(x_1 = 1 \mid \text{Class} = B) \cdot p(x_2 = 2 \mid \text{Class} = B)}{p(x_1 = 1, x_2 = 2)} \\
+    &= \frac{\frac{1}{2} \cdot N(
+        \begin{pmatrix}1 \\ 2\end{pmatrix} \mid
+        \mu = \begin{pmatrix}2.75 \\ 0.55\end{pmatrix},
+        \sum = \begin{pmatrix}0.9167 & 0.2500 \\ 0.2500 & 0.4100 \end{pmatrix}
+    )}{p(x_1 = 1, x_2 = 2)} \\
+    &= \frac{2.3373\times10\textsuperscript{-4}}{p(x_1 = 1, x_2 = 2)}
+\end{align*}
+
+By comparing the numerators, we conclude that:
+$$p(\text{Class} = A \mid x_1 = 1, x_2 = 2) < p(\text{Class} = B \mid x_1 = 1, x_2 = 2)$$
+\\
+Hence, the most probable class for the query vector $$x = (1, 2)\textsuperscript{T}$$ is class B.
+
+The predicted class is not the same, what may indicate that the parameters of x1 and x2 are not independent, making a Naive Gaussian distribution inadequate for this situation.
+
+
+"the parameters x1x1​ and x2x2​ are likely not independent"
+"a more complex model that accounts for the joint distribution of the features could provide better predictive accuracy"
+\newpage
+
+
+
+%---------------------------------------------------------------------------------------
+\newpage
+
+\end{document}
