@@ -25,9 +25,9 @@ Now, to estimate the likelihoods, we must consider each distribution as independ
     \hline
     & \( p(x_1 \mid \text{Class} = A) \) & \( p(x_1 \mid \text{Class} = B) \) \\ 
     \hline
-    \( \mu \) & 20 & 20 \\
+    \( \mu \) & 1.25 & 1.2 \\
     \hline
-    \( \sigma \) & 20 & 20 \\
+    \( \sigma \) & 0.5508 & 0.6055 \\
     \hline
 \end{tabular}
 \\
@@ -107,14 +107,10 @@ By comparing the numerators, we conclude that:
 $$p(\text{Class} = A \mid x_1 = 1, x_2 = 2) < p(\text{Class} = B \mid x_1 = 1, x_2 = 2)$$
 \\
 Hence, the most probable class for the query vector $$x = (1, 2)\textsuperscript{T}$$ is class B.
-
-The predicted class is not the same, what may indicate that the parameters of x1 and x2 are not independent, making a Naive Gaussian distribution inadequate for this situation.
-
-
-"the parameters x1x1​ and x2x2​ are likely not independent"
-"a more complex model that accounts for the joint distribution of the features could provide better predictive accuracy"
-\newpage
-
+The predicted class is not the same, which may indicate that the parameters \(x_1\) and \(x_2\) are not independent, making a Naive Gaussian distribution inadequate for this situation.
+The parameters \(x_1\) and \(x_2\) are likely not independent.
+\\
+A more complex model that accounts for the joint distribution of the features could provide better predictive accuracy.
 
 \subsection{Exercise c)}
 In this exercise, we want to determine which class (A or B) appears the most times when \( x_3 = 1 \).
@@ -146,9 +142,105 @@ We can now calculate both final probabilities:
 
 So, with the calculations, we conclude that the most probable class is B.
 
-\newpage
+\subsection{Exercise d) Axel}
+We will need to calculate two probabilities, defined as follows:
+\begin{align*}
+    p(A, x_\text{query}) = p((1,2) | A) \cdot p(1 | A) \cdot p(A) \\
+    p(B, x_\text{query}) = p((1,2) | B) \cdot p(1 | B) \cdot p(B) \\
+\end{align*}
+The higher probability between those will indicate the most probable class for the query vector \( x_\text{query} = (1,2) \). For simplicity, its probability will be referred as \(p((1,2))\), instead of \(p(x_1 = 1, x_2 = 2)\).
 
-\subsection{Exercise d)}
+\bigskip
+
+Before, we calculated \( p(A) \) and \( p(B) \), being as follows: 
+\[
+p(A) = \frac{\text{card}(A)}{\text{total number of entries}} = 0.5
+\]
+\[
+p(B) = \frac{\text{card}(B)}{\text{total number of entries}} = 0.5
+\]
+
+\bigskip
+
+We also know, from Bayes' theorem, that:
+\[
+p(A | (1,2)) = \frac{p((1,2) | A) \cdot p(A)}{p((1,2))}
+\]
+
+From this, we can rearrange to find the likelihood \( p((1,2) | A) \):
+\[
+p((1,2) | A) = \frac{p(A | (1,2)) \cdot p((1,2))}{p(A)}
+\]
+
+Substituting the known values into the formula:
+\[
+p((1,2) | A) = \frac{\frac{0.0899 \cdot p((1,2))}{p((1,2))}}{p(A)}
+\]
+Since \( p((1,2)) \) cancels out in the numerator and denominator (and considering it is never zero), we simplify to:
+\[
+p((1,2) | A) = \frac{0.0899}{p(A)} = \frac{0.0899}{0.5} = 0.1798
+\]
+
+Next, we can calculate \( p(1 | A) \) by applying the given formula:
+\[
+p(1 | A) = \frac{\text{card}(A.1)}{\text{card}(A)} = \frac{2}{4} = 0.5
+\]
+
+And finally substitute to calculate \( p(A, x_\text{query}) \):
+\[
+p(A, x_\text{query}) = p((1,2) | A) \cdot p(1 | A) \cdot p(A)
+\]
+Substituting the values:
+\[
+p(A, x_\text{query}) = 0.1798 \cdot 0.5 \cdot 0.5 = 0.04495
+\]
+
+\bigskip
+
+Now, let’s calculate the same for class \( B \). Using the same steps:
+
+From the previous calculation:
+\[
+p(B | (1,2)) = \frac{0.0019}{p((1,2))}
+\]
+Rearranging for \( p((1,2) | B) \):
+\[
+p((1,2) | B) = \frac{p(B | (1,2)) \cdot p((1,2))}{p(B)}
+\]
+Substituting known values:
+\[
+p((1,2) | B) = \frac{0.0019}{0.5} = 0.0038
+\]
+
+Next, we calculate \( p(1 | B) \):
+\[
+p(1 | B) = \frac{\text{card}(B.1)}{\text{card}(B)} = \frac{3}{4} = 0.75
+\]
+
+Finally, we calculate \( p(B, x_\text{query}) \):
+\[
+p(B, x_\text{query}) = p((1,2) | B) \cdot p(1 | B) \cdot p(B)
+\]
+Substituting the values:
+\[
+p(B, x_\text{query}) = 0.0038 \cdot 0.75 \cdot 0.5 = 0.001425
+\]
+
+\bigskip
+
+We now have both probabilities:
+\[
+p(A, x_\text{query}) = 0.04495
+\]
+\[
+p(B, x_\text{query}) = 0.001425
+\]
+
+Since \( p(A, x_\text{query}) > p(B, x_\text{query}) \), the most probable class for the query vector \( x_\text{query} = (1,2) \) is class \( A \).
+
+
+
+\subsection{Exercise dd) Martim}
 In this exercise, the target is similar to the previous one: to find the most probable class, but now we have to indicate the relative probability between classes as well.
 \newline
 \newline
@@ -201,6 +293,56 @@ we need firstly to estimate \( \mu \) (average) and \(\sigma^2\) (variance) for 
 \[
 \sigma^2_B(x_2) = \frac{(0 - 0.55)^2 + (1 - 0.55)^2 + (0 - 0.55)^2 + (1.2 - 0.55)^2}{4} = 0.3075
 \]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+% Apontamentos para a formula original
+% N \left( \mathbf{x} \mid \boldsymbol{\mu}, \boldsymbol{\Sigma} \right) = \frac{1}{\left( 2 \pi \right)^{\frac{2}{2}} \sqrt{0.8333}} \exp \left( -\frac{1}{2} \left( \begin{bmatrix} x_0 \\ x_1 \end{bmatrix} - \begin{bmatrix} -1.25 \\ 1.75 \end{bmatrix} \right)^\top \begin{bmatrix} 1.1 & 0.1 \\ 0.1 & 1.1 \end{bmatrix} \left( \begin{bmatrix} x_0 \\ x_1 \end{bmatrix} - \begin{bmatrix} -1.25 \\ 1.75 \end{bmatrix} \right) \right)
+
+
+
+
+
+\section{Software Experiment} 
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{}          & \textbf{NIST test} & \textbf{Wine test} \\ \hline
+\textbf{Train/Test Size} & 718 / 1079 & 71 / 107                \\ \hline
+\textbf{kNN (k = 3)}     & 0.98                     & 0.69                     \\ \hline
+\textbf{kNN (k = 30)}    & 0.95                     & 0.67                     \\ \hline
+\textbf{Bayesian (Gauss)}& 0.87                     & 0.98                     \\ \hline
+\end{tabular}
+\caption{Combined results from NIST and Wine experiments.}
+\end{table}
+
+The kNN method gives better results (greater accuracy) for the NMIST dataset, while the Gaussian Naive Baye's approach (GaussianNB) was better for the wine dataset, and this is caused by two main aspects: the Curse of Dimensionality and the type of distribution.
+\\
+\\
+From one side, kNN performs surprisingly well with the NMIST (digits) dataset, and just a bit worse when the high number of neighbours (K = 30) leads to similar features (a similar input value) being interpreted as the same. Noteworthy, in this case the Curse of Dimensionality did not influence kNN because all attributes (each of the 64 matrix input' cells) are equally important. GaussianNB, however, performs worse on the dataset, because it relates less to a Gaussian distribution. 
+\\
+\\
+From the other side, wine's data distribution can be well-approximated by a Gaussian distribution considering the Naive Baye's approach, leading to more accurate results. Meanwhile, kNN's lazy learning here does diminish the accuracy (specially for K = 30, for the same reason as above). Here, kNN's worse accuracy is explained by the due to the instance space being high-dimensional and also not equally relevant, consequently misleading the importance of some features (Curse of dimensionality). For instance, the color of the wine is more important than the amount of alcohol, for example.
+
+
+
+
+
+
+
 %---------------------------------------------------------------------------------------
 \newpage
 
