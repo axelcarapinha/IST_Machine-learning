@@ -1,16 +1,23 @@
 \documentclass{article}
 \usepackage{amsmath}  % For math symbols
 \usepackage{array}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{lipsum}   % For dummy text, you can remove this if unnecessary
+\usepackage{hyperref} % Include the hyperref package
 
-\title{Machine Learning Report}
-\author{}
-\date{}
+\title{
+\includegraphics[width=0.5\textwidth]{ist-logo.jpg}\\[1ex] % Image at the top, adjust width if needed
+Machine Learning Report \\ 
+\large Homework II - Probability Distributions and Bayesian Classification
+}
+\author{ist1114964 - Axel Carapinha \\ ist1106565 - Martim Gordino}
+\date{\today}
+
 \begin{document}
 
 \maketitle
-\begin{center}
-    \textbf{Homework 2 - Bayesian Learning}
-\end{center}
+\tableofcontents
+\newpage
 
 \section{Bayesian Classifier}
 \subsection{Exercise a)}
@@ -142,7 +149,7 @@ We can now calculate both final probabilities:
 
 So, with the calculations, we conclude that the most probable class is B.
 
-\subsection{Exercise d) Axel}
+\subsection{Exercise d)}
 We will need to calculate two probabilities, defined as follows:
 \begin{align*}
     p(A, x_\text{query}) = p((1,2) | A) \cdot p(1 | A) \cdot p(A) \\
@@ -232,82 +239,7 @@ p(B, x_\text{query}) = 0.001425
 
 Since \( p(A, x_\text{query}) > p(B, x_\text{query}) \), the most probable class for the query vector \( x_\text{query} = (1,2) \) is class \( A \).
 
-
-
-\subsection{Exercise dd) Martim}
-In this exercise, the target is similar to the previous one: to find the most probable class, but now we have to indicate the relative probability between classes as well.
-\newline
-\newline
-Giving the probabilities:
-
-\[
-P(A) = \frac{1}{2},\;P(B) = \frac{1}{2}
-\]
-
-We can calculate the probability of \( x_3 \) being 1, with the class being both A and B:
-
-\[
-P(x_3 = 1 \mid A) = \frac{card(A.1)}{card(A)} = \frac{1}{2}
-\]
-\[
-P(x_3 = 1 \mid B) = \frac{card(B.1)}{card(B)} = \frac{3}{4}
-\]
-\newline
-Now, we have to calculate the probability that the entry (1,2) belongs to both A and B
-
-Since we already have \( P(A) \) and \( P(B) \), we only need to calculate both \( P((1,2) \mid A) \) and \( P((1,2) \mid B) \)
-we need firstly to estimate \( \mu \) (average) and \(\sigma^2\) (variance) for both A and B.
-
-\[
-\mu = \frac{1}{n}\sum_{i = 1}^n x_i, \;\;\sigma^2 = \frac{1}{n}\sum_{i = 1}^n (x_i - \mu)^2
-\]
-
-\[
-\mu_A(x_1) = \frac{0.6+1+1.6+1.8}{4} = 1.25
-\]
-\[
-\mu_A(x_2) = \frac{0.4+1.1+0.5+1.8}{4} = 0.95
-\]
-\[
-\mu_B(x_1) = \frac{2+2+3+4}{4} = 2.75
-\]
-\[
-\mu_B(x_2) = \frac{0+1+0+1.2}{4} = 0.55
-\]
-
-\[
-\sigma^2_A(x_1) = \frac{(0.6-1.25)^2 + (1 - 1.25)^2 + (1.6 - 1.25)^2 + (1.8 - 1.25)^2}{4} = 0.2275
-\]
-\[
-\sigma^2_A(x_2) = \frac{(0.6-0.95)^2 + (1 - 0.95)^2 + (1.6 - 0.95)^2 + (1.8 - 0.95)^2}{4} = 0.3175
-\]
-\[
-\sigma^2_B(x_1) = \frac{(2 - 2.75)^2 + (2 - 2.75)^2 + (3 - 2.75)^2 + (4 - 2.75)^2}{4} = 0.6875
-\]
-\[
-\sigma^2_B(x_2) = \frac{(0 - 0.55)^2 + (1 - 0.55)^2 + (0 - 0.55)^2 + (1.2 - 0.55)^2}{4} = 0.3075
-\]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 \newpage
-% Apontamentos para a formula original
-% N \left( \mathbf{x} \mid \boldsymbol{\mu}, \boldsymbol{\Sigma} \right) = \frac{1}{\left( 2 \pi \right)^{\frac{2}{2}} \sqrt{0.8333}} \exp \left( -\frac{1}{2} \left( \begin{bmatrix} x_0 \\ x_1 \end{bmatrix} - \begin{bmatrix} -1.25 \\ 1.75 \end{bmatrix} \right)^\top \begin{bmatrix} 1.1 & 0.1 \\ 0.1 & 1.1 \end{bmatrix} \left( \begin{bmatrix} x_0 \\ x_1 \end{bmatrix} - \begin{bmatrix} -1.25 \\ 1.75 \end{bmatrix} \right) \right)
-
-
-
-
 
 \section{Software Experiment} 
 \begin{table}[h!]
