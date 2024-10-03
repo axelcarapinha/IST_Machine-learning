@@ -116,7 +116,91 @@ The predicted class is not the same, what may indicate that the parameters of x1
 \newpage
 
 
+\subsection{Exercise c)}
+In this exercise, we want to determine which class (A or B) appears the most times when \( x_3 = 1 \).
 
+To compute that, we use the Bayes' rule of interpretation:
+
+\[
+P(C \mid E) = \frac{P(E \mid C) \cdot P(C)}{P(E)}
+\]
+
+Where:
+\begin{itemize}
+    \item \( P(C \mid E) \) is the posterior probability of the class \( C \), given the evidence \( E \) (in this case, \( x_3 = 1 \)).
+    \item \( P(E \mid C) \) is the likelihood of observing \( x_3 = 1 \) given class \( C \).
+    \item \( P(C) \) is the prior probability of class \( C \) (the general probability of class \( C \)).
+    \item \( P(E) \) is the total probability of observing \( x_3 = 1 \) (the normalizing factor).
+\end{itemize}
+
+Given the following probabilities:
+\[
+P(A) = \frac{1}{2},\;P(B) = \frac{1}{2},\;P(E \mid A ) = \frac{1}{2},\;P(E \mid B) = \frac{3}{4},\;P(E) = \frac{5}{8}
+\]
+
+We can now calculate both final probabilities:
+
+\[P(A \mid E) = \frac{\frac{1}{2} \times \frac{1}{2}}{\frac{5}{8}} = \frac{2}{5}\]
+
+\[P(B \mid E) = \frac{\frac{1}{2} \times \frac{3}{4}}{\frac{5}{8}} = \frac{3}{5}\]
+
+So, with the calculations, we conclude that the most probable class is B.
+
+\newpage
+
+\subsection{Exercise d)}
+In this exercise, the target is similar to the previous one: to find the most probable class, but now we have to indicate the relative probability between classes as well.
+\newline
+\newline
+Giving the probabilities:
+
+\[
+P(A) = \frac{1}{2},\;P(B) = \frac{1}{2}
+\]
+
+We can calculate the probability of \( x_3 \) being 1, with the class being both A and B:
+
+\[
+P(x_3 = 1 \mid A) = \frac{card(A.1)}{card(A)} = \frac{1}{2}
+\]
+\[
+P(x_3 = 1 \mid B) = \frac{card(B.1)}{card(B)} = \frac{3}{4}
+\]
+\newline
+Now, we have to calculate the probability that the entry (1,2) belongs to both A and B
+
+Since we already have \( P(A) \) and \( P(B) \), we only need to calculate both \( P((1,2) \mid A) \) and \( P((1,2) \mid B) \)
+we need firstly to estimate \( \mu \) (average) and \(\sigma^2\) (variance) for both A and B.
+
+\[
+\mu = \frac{1}{n}\sum_{i = 1}^n x_i, \;\;\sigma^2 = \frac{1}{n}\sum_{i = 1}^n (x_i - \mu)^2
+\]
+
+\[
+\mu_A(x_1) = \frac{0.6+1+1.6+1.8}{4} = 1.25
+\]
+\[
+\mu_A(x_2) = \frac{0.4+1.1+0.5+1.8}{4} = 0.95
+\]
+\[
+\mu_B(x_1) = \frac{2+2+3+4}{4} = 2.75
+\]
+\[
+\mu_B(x_2) = \frac{0+1+0+1.2}{4} = 0.55
+\]
+
+\[
+\sigma^2_A(x_1) = \frac{(0.6-1.25)^2 + (1 - 1.25)^2 + (1.6 - 1.25)^2 + (1.8 - 1.25)^2}{4} = 0.2275
+\]
+\[
+\sigma^2_A(x_2) = \frac{(0.6-0.95)^2 + (1 - 0.95)^2 + (1.6 - 0.95)^2 + (1.8 - 0.95)^2}{4} = 0.3175
+\]
+\[
+\sigma^2_B(x_1) = \frac{(2 - 2.75)^2 + (2 - 2.75)^2 + (3 - 2.75)^2 + (4 - 2.75)^2}{4} = 0.6875
+\]
+\[
+\sigma^2_B(x_2) = \frac{(0 - 0.55)^2 + (1 - 0.55)^2 + (0 - 0.55)^2 + (1.2 - 0.55)^2}{4} = 0.3075
+\]
 %---------------------------------------------------------------------------------------
 \newpage
 
