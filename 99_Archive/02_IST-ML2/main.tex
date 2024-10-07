@@ -89,7 +89,6 @@ Now, calculating the posteriors:
 \begin{align*}
     p(\text{Class} = A \mid x_1 = 1, x_2 = 2) 
     &= \frac{p(\text{Class} = A) \cdot p(x_1 = 1, x_2 = 2 \mid \text{Class} = A)}{p(x_1 = 1, x_2 = 2)} \\
-    &= \frac{p(\text{Class} = A) \cdot p(x_1 = 1 \mid \text{Class} = A) \cdot p(x_2 = 2 \mid \text{Class} = A)}{p(x_1 = 1, x_2 = 2)} \\
     &= \frac{\frac{1}{2} \cdot N(
         \begin{pmatrix}1 \\ 2\end{pmatrix} \mid
         \mu = \begin{pmatrix}1.25 \\ 1.20\end{pmatrix},
@@ -101,7 +100,6 @@ Now, calculating the posteriors:
 \begin{align*}
     p(\text{Class} = B \mid x_1 = 1, x_2 = 2) 
     &= \frac{p(\text{Class} = B) \cdot p(x_1 = 1, x_2 = 2 \mid \text{Class} = B)}{p(x_1 = 1, x_2 = 2)} \\
-    &= \frac{p(\text{Class} = B) \cdot p(x_1 = 1 \mid \text{Class} = B) \cdot p(x_2 = 2 \mid \text{Class} = B)}{p(x_1 = 1, x_2 = 2)} \\
     &= \frac{\frac{1}{2} \cdot N(
         \begin{pmatrix}1 \\ 2\end{pmatrix} \mid
         \mu = \begin{pmatrix}2.75 \\ 0.55\end{pmatrix},
@@ -115,7 +113,6 @@ $$p(\text{Class} = A \mid x_1 = 1, x_2 = 2) < p(\text{Class} = B \mid x_1 = 1, x
 \\
 Hence, the most probable class for the query vector $$x = (1, 2)\textsuperscript{T}$$ is class B.
 The predicted class is not the same, which may indicate that the parameters \(x_1\) and \(x_2\) are not independent, making a Naive Gaussian distribution inadequate for this situation.
-The parameters \(x_1\) and \(x_2\) are likely not independent.
 \\
 A more complex model that accounts for the joint distribution of the features could provide better predictive accuracy.
 
@@ -246,7 +243,7 @@ Since \( p(A, x_\text{query}) > p(B, x_\text{query}) \), the most probable class
 \centering
 \begin{tabular}{|c|c|c|c|}
 \hline
-\textbf{}          & \textbf{NIST test} & \textbf{Wine test} \\ \hline
+\textbf{}          & \textbf{MNIST test} & \textbf{Wine test} \\ \hline
 \textbf{Train/Test Size} & 718 / 1079 & 71 / 107                \\ \hline
 \textbf{kNN (k = 3)}     & 0.98                     & 0.69                     \\ \hline
 \textbf{kNN (k = 30)}    & 0.95                     & 0.67                     \\ \hline
@@ -255,13 +252,16 @@ Since \( p(A, x_\text{query}) > p(B, x_\text{query}) \), the most probable class
 \caption{Combined results from NIST and Wine experiments.}
 \end{table}
 
-The kNN method gives better results (greater accuracy) for the NMIST dataset, while the Gaussian Naive Baye's approach (GaussianNB) was better for the wine dataset, and this is caused by two main aspects: the Curse of Dimensionality and the type of distribution.
+The kNN method gives better results (greater accuracy) for the MNIST dataset, while the Gaussian Naive Bayes approach' (GaussianNB) was better for the wine dataset, and this is caused by two main aspects: the Curse of Dimensionality and the type of distribution.
 \\
 \\
-From one side, kNN performs surprisingly well with the NMIST (digits) dataset, and just a bit worse when the high number of neighbours (K = 30) leads to similar features (a similar input value) being interpreted as the same. Noteworthy, in this case the Curse of Dimensionality did not influence kNN because all attributes (each of the 64 matrix input' cells) are equally important. GaussianNB, however, performs worse on the dataset, because it relates less to a Gaussian distribution. 
+From one side, kNN performs surprisingly well with the MNIST (digits) dataset, and just a bit worse when the high number of neighbours (K = 30) leads to similar features (a similar input value) being interpreted as the same. Noteworthy, in this case the Curse of Dimensionality did not influence kNN because all attributes (each of the 64 matrix input cells) are equally important (what is improved by the dimensionality reduction done with the initial input). GaussianNB, however, performs worse on the dataset, because it relates less to a Gaussian distribution. 
 \\
 \\
-From the other side, wine's data distribution can be well-approximated by a Gaussian distribution considering the Naive Baye's approach, leading to more accurate results. Meanwhile, kNN's lazy learning here does diminish the accuracy (specially for K = 30, for the same reason as above). Here, kNN's worse accuracy is explained by the due to the instance space being high-dimensional and also not equally relevant, consequently misleading the importance of some features (Curse of dimensionality). For instance, the color of the wine is more important than the amount of alcohol, for example.
+From the other side, wine's data distribution can be well-approximated by a Gaussian distribution considering the Naive Bayes' approach, leading to more accurate results. Meanwhile, kNN's lazy learning here does diminish the accuracy (specially for K = 30, for the same reason as above). So, kNN's worse accuracy is explained due to the instance space being high-dimensional and also not equally relevant, consequently misleading the importance of some features (Curse of dimensionality). For instance, the color of the wine is more important than the amount of alcohol, for example.
+
+
+
 
 
 
