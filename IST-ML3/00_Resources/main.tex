@@ -1,0 +1,278 @@
+\documentclass{article}
+\usepackage{amsmath}  % For math symbols
+\usepackage{array}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{lipsum}   % For dummy text, you can remove this if unnecessary
+\usepackage{hyperref} % Include the hyperref package
+
+
+\title{
+\includegraphics[width=0.5\textwidth]{ist-logo.jpg}\\[1ex] % Image at the top, adjust width if needed
+Machine Learning Report \\ 
+\large Homework III - Polynomial Regression and Neural Networks
+}
+\author{ist1114964 - Axel Carapinha \\ ist1106565 - Martim Gordino}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Polynomial Regression}
+\subsection{Exercise a)}
+We have a non-linear transformation, so we apply it:
+\[
+\Phi = \begin{pmatrix}
+1 & x_1 & x_1^2 & x_1^3 \\
+1 & x_2 & x_2^2 & x_2^3 \\
+1 & x_3 & x_3^2 & x_3^3 \\
+1 & x_4 & x_4^2 & x_4^3 \\
+1 & x_5 & x_5^2 & x_5^3
+\end{pmatrix}
+\]
+
+Substituting the values of \( x \):
+\\
+- For \( x_1 = -1 \):
+  \[
+  (1, -1, 1, -1)
+  \]
+- For \( x_2 = 1 \):
+  \[
+  (1, 1, 1, 1)
+  \]
+- For \( x_3 = -1.2 \):
+  \[
+  (1, -1.2, 1.44, -1.728)
+  \]
+- For \( x_4 = 1.4 \):
+  \[
+  (1, 1.4, 1.96, 2.744)
+  \]
+- For \( x_5 = 1.9 \):
+  \[
+  (1, 1.9, 3.61, 6.859)
+  \]
+
+
+So, the complete design matrix \( \Phi \) is:
+
+\[
+\Phi = 
+\begin{pmatrix}
+1 & -1 & 1 & -1 \\
+1 & 1 & 1 & 1 \\
+1 & -1.2 & 1.44 & -1.728 \\
+1 & 1.4 & 1.96 & 2.744 \\
+1 & 1.9 & 3.61 & 6.859
+\end{pmatrix}
+\]
+\\
+\\
+Noteworthy, the first column represents the bias.
+
+\subsection{Exercise b)}
+
+We calculate the pseudo-inverse \( \Phi^\dagger \) using the formula:
+
+\[
+\Phi^\dagger = \left( \Phi^T \Phi \right)^{-1} \Phi^T
+\]
+
+Calculating the design matrix \( \Phi \):
+
+\[
+\Phi = 
+\begin{pmatrix}
+1 & -1 & 1 & -1 \\
+1 & 1 & 1 & 1 \\
+1 & -1.2 & 1.44 & -1.728 \\
+1 & 1.4 & 1.96 & 2.744 \\
+1 & 1.9 & 3.61 & 6.859
+\end{pmatrix}
+\]
+
+Calculating \( \Phi^T \Phi \):
+
+\[
+\Phi^T \Phi = 
+\begin{pmatrix} 
+5. & 2.1 & 9.01 & 7.875 \\ 
+2.1 & 9.01 & 7.875 & 20.9473 \\ 
+9.01 & 7.875 & 20.9473 & 27.65091 \\ 
+7.875 & 20.9473 & 27.65091 & 59.561401 
+\end{pmatrix}
+\]
+
+Now, we find the inverse of \( \Phi^T \Phi \):
+
+\[
+\left( \Phi^T \Phi \right)^{-1} = 
+\begin{pmatrix} 
+5.70227083 & -2.57484188 & -4.35147072 & 2.17175428 \\ 
+-2.57484188 & 1.98153792 & 2.15163725 & -1.35533611 \\ 
+-4.35147072 & 2.15163725 & 3.48654192 & -1.79997808 \\ 
+2.17175428 & -1.35533611 & -1.79997808 & 1.04193484 
+\end{pmatrix}
+\]
+
+Given the target vector \( t \):
+
+\[
+t = 
+\begin{pmatrix} 
+-2 \\ 
+3 \\ 
+-3 \\ 
+0 \\ 
+-3 
+\end{pmatrix}
+\]
+
+Furthermore, implementing everything in the formula of the pseudo-inverse:
+
+\[
+\Phi^\dagger = \left( \Phi^T \Phi \right)^{-1} \Phi^T
+\]
+
+And \( \Phi^\dagger \) becomes:
+
+\[
+\Phi^\dagger = 
+\begin{pmatrix} 
+1.75388771 & 0.94771252 & -1.22682816 & -0.47209666 & -0.00267541 \\ 
+-1.04940644 & 0.20299718 & 0.48769105 & 0.69747794 & -0.33875972 \\ 
+-1.21658797 & -0.51326963 & 1.19754707 & 0.55530376 & -0.02299322 \\ 
+0.68517748 & 0.05837494 & -0.59427422 & -0.39460409 & 0.24532589 
+\end{pmatrix}
+\]
+
+Finally, the weights \( w \) are calculated as follows:
+
+\[
+w = \Phi^\dagger \cdot t = 
+\begin{pmatrix} 
+3.02387284 \\ 
+2.26101046 \\ 
+-2.63029446 \\ 
+-0.14838515 
+\end{pmatrix}
+\]
+
+\subsection{Exercise c)}
+This occurs because, unlike L2 regularization, L1 regularization (LASSO) leads to an optimization problem that is not differentiable at zero. As a result, a closed-form solution, which relies on the differentiability of the objective function, is not feasible.
+
+Noteworthy, this is a problem because 0 is a possible value for the coefficient estimates, due to the absolute value penalty of L1 regularization (as opposed to the quadratic of L2) that encourages greater sparsity in these values.
+
+\section{Neural Network}
+% Extremamente Semelhante a exercício 3 (ficha S07_08), apenas varia com ReLU em vez de sigmoid
+We will need to calculate the derivates of the softmax function and derivative error, 
+to use in the back propagation phase, and a later update phase.
+
+% Index:
+% (1.) deriving the softmax function
+% (2.) derivative of the error function
+% (3.) forward propagation
+% (4.) recursion (back propagation)
+% (5.) update
+
+In general, we have that
+\[
+\text{softmax} \left( \begin{bmatrix} z_1 & z_2 & \cdots & z_d \end{bmatrix} \right)^\top = \begin{bmatrix} x_1 & x_2 & \cdots & x_d \end{bmatrix}^\top
+\]
+
+
+\( x_i = \frac{\exp(z)}{\sum_{k=1}^d \exp(z_k)} \) only on \( z_i \) 
+
+We can specify its derivative as follows:
+$
+\frac{\partial x_i}{\partial z_j} = 
+\begin{cases} 
+x_i (1 - x_i) & \text{if } i = j \\ 
+-x_i x_j & \text{if } i \neq j 
+\end{cases}
+$
+
+\\
+\\
+% (2.) Forward propagation
+Now, we can proceed with \underline{forward propagation}:
+
+\( x\text{\textsuperscript{[0]}} = \begin{pmatrix} 1 \\ 1 \\ 1 \\ 1 \\ 1 \end{pmatrix} \)
+
+\[
+z^{[1]} = W^{[1]} x + b^{[1]} = \begin{pmatrix} 0.5 \\ -5 \\ 5 \end{pmatrix}
+\]
+
+Applying ReLU activation:
+\[
+x^{[1]} = \text{ReLU}(z^{[1]}) = \begin{pmatrix} 0.5 \\ 0 \\ 5 \end{pmatrix}
+\]
+
+\[
+z^{[2]} = W^{[2]} x^{[1]} + b^{[2]} = \begin{pmatrix} 0 \\ 1 \end{pmatrix}
+\]
+
+Applying softmax activation (as it's the output layer):
+\[
+x^{[2]} = \text{softmax}(z^{[2]}) = \begin{pmatrix} 0.2689 \\ 0.7311 \end{pmatrix}
+\]
+
+Now, for the \underline{cross-entropy loss}:
+\[
+E(t, x^{[2]}) = - \left( 1 \cdot \log(0.2689) + 0 \cdot \log(0.7311) \right) = 1.3133
+\]
+
+Now, \underline{backward propagation}:
+\[
+\delta^{[2]} = x^{[2]} - t = \begin{pmatrix} -0.7311 \\ 0.7311 \end{pmatrix}
+\]
+
+\[
+\delta^{[1]} = W^{[2]^T} \delta^{[2]} \circ \text{ReLU}'(z^{[1]}) = \begin{pmatrix} -1.4622 \\ 0 \\ 0 \end{pmatrix}
+\]
+
+Fianlly, we can \underline{update the parameters}:
+\[
+W^{[2]} = \begin{pmatrix} 0.03656 & 0 & 0.36555 \\ 1.96344 & 0 & -0.36555 \end{pmatrix}, \quad b^{[2]} = \begin{pmatrix} 0.07311 \\ -0.07311 \end{pmatrix}
+\]
+
+\[
+W^{[1]} = \begin{pmatrix} 0.24622 & 0.24622 & 0.24622 & 0.24622 & 0.24622 \\ -1 & -1 & -1 & -1 & -1 \\ 1 & 1 & 1 & 1 & 1 \end{pmatrix}, \quad b^{[1]} = \begin{pmatrix} 0.14622 \\ 0 \\ 0 \end{pmatrix}
+\]
+
+\\
+\\
+Complementar note: analysing the connection weights and biases, we can infer that there are 3 layers: an input layer (5 neurons), a hidden layer (3 neurons) and an output layer (the 2 final neurons).
+
+\section{Software Experiments}
+The used random state was 9.
+
+\subsection{Exercise a)}
+The best values were achieved with 5 layers and 48 nodes per layer, with the following model's loss curve:
+\\
+\includegraphics[width=0.9\textwidth]{03_Work3/loss_function.png}\\[1ex] % Image at the top, adjust width if needed
+The model converges near 100 iterations, and the hamiltonian started to increase between 150 and 160 (overfiting), explaining the stop of the model's training before the defined maximum (of 2000 iterations). 
+\newpage
+Additionaly, here's a graphical representation of the model's accuracies, being generally higher with less layers and more nodes. However, sometimes more nodes appear to have lead to overfiting, when an intermediate value seems the best approach.
+\\
+\includegraphics[width=0.9\textwidth]{final_plot_50.png}\\[1ex] % Image at the top, adjust width if needed
+
+
+\subsection{Exercise b)}
+%TODO incluir image de loss curve
+The results were better at first (accurate faster), but remained in a certain interval (in a unstable manner), what can be explained by the linearity introduced by this function.
+\\
+\includegraphics[width=0.8\textwidth]{final_result_50_identity.png}\\[1ex]
+\\
+\\
+Using it created a linear relationship between data, something that is not the goal, specially when the hidden layers commonly aim to generalize non-linear behaviours (and even need to be non-linear, otherwise they would not be even needed).
+\\
+\\
+Other functions, like tanh or sigmoid are better suited, not limiting the model's capability to understand the (possible) complex patterns and potentially leading to underfiting.
+
+
+
+\end{document}
