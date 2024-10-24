@@ -9,7 +9,7 @@
 \title{
 \includegraphics[width=0.5\textwidth]{ist-logo.jpg}\\[1ex] % Image at the top, adjust width if needed
 Machine Learning Report \\ 
-\large Homework III - Polynomial Regression and Neural Networks
+\large Homework IV - Clustering and PCA
 }
 \author{ist1114964 - Axel Carapinha \\ ist1106565 - Martim Gordino}
 \date{\today}
@@ -352,5 +352,84 @@ So, the silhouette is:
 \[
 s(C_1) = \frac{s(x^{(1)}) + s(x^{(3)})}{2} = 0.725
 \]
+
+\newpage
+
+\section{Software Experiments}
+\subsection{Exercise a)}
+
+By performing all the algorithms, we obtain the following silhouette values:
+
+\begin{itemize}
+    \item For k\_means: 
+    \[ s = 0.5711381937868838 \]
+    
+    \item For EM-Clustering: 
+    \[ s = 0.283260460057237\]
+\end{itemize}
+
+As the silhouette is bigger in the k\_means algorithm, the k\_means is the better clustering.
+
+\subsection{Exercise b)}
+
+By analyzing the graph below, we conclude that the three classes are separable, because colour overlay is not significative in this case.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{output.png}
+    \caption{Graph showing class separability}
+\end{figure}
+
+
+\newpage
+\subsection{Exercise c)}
+
+\begin{itemize}
+    \item For K-Means: 
+    \[
+    s = 0.5722554756855064
+    \]
+    
+    \item For EM-Clustering: 
+    \[
+    s = 0.26233330799498905
+    \]
+\end{itemize}
+
+The k\_means is still the better algorithm, because the silhouette is greater. Silhouette values vary due to random initialization in k\_means and EM-clustering, data structure and dimensionality reduction with PCA.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{output1.png}
+    \caption{K-Means clustering result}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{output2.png}
+    \caption{EM-Clustering result}
+\end{figure}
+
+\newpage
+\subsection{Exercise d)}
+
+\begin{itemize}
+    \item For K-Means: 
+    \[
+    s = 0.6972646156059464
+    \]
+    
+    \item For EM-Clustering: 
+    \[
+    s = 0.5315172918032405
+    \]
+\end{itemize}
+
+The silhouette is bigger k\_means, so k\_means is still the best one.
+
+\includegraphics[width=0.8\textwidth]{output3.png}\\[1ex]
+
+By comparating the ilhouette difference in both algorithms we would expect the same-class points to be closer to each other, which happens as we can see in the graph above.
 
 \end{document}
