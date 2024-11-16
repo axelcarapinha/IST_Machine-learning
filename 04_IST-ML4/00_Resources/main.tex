@@ -4,6 +4,7 @@
 \usepackage{graphicx} % Required for inserting images
 \usepackage{lipsum}   % For dummy text, you can remove this if unnecessary
 \usepackage{hyperref} % Include the hyperref package
+\usepackage{subfigure}
 
 
 \title{
@@ -44,12 +45,16 @@ P(C = 1) = 0.6
 P(C = 2) = 0.4
 \]
 \newline
-Now, let´s calculate the likelihood and the joint probability for both clusters
+Now we can get to the second step, the \underline{expectation},
+where we will assign each point to the cluster that yields higher posterior.
 
 \begin{itemize}
 
- \item[\textbullet] For \( x^{(1)} \), C = 1:
- 
+\item[\textbullet] For \( x^{(1)} \), C = 1:
+\[
+\text{Prior: } p(C = 1) = 0.6
+\]
+
 \[
 \text{Likelihood: } p \left( x^{(1)} \mid C = 1 \right) = \frac{1}{2\pi} \frac{1}{\det(\Sigma_1)} \exp \left( -\frac{1}{2} \left( x^{(1)} - \mu^1 \right)^T \Sigma_1^{-1} \left( x^{(1)} - \mu^1 \right) \right)
 \]
@@ -63,7 +68,7 @@ Now, let´s calculate the likelihood and the joint probability for both clusters
 \]
 
 \[
-= \frac{1}{2\pi} \exp(0) = \frac{1}{2\pi}
+= \frac{1}{2\pi} \exp(0) = \frac{1}{2\pi} = 0.159
 \]
 
 \[
@@ -72,6 +77,10 @@ Now, let´s calculate the likelihood and the joint probability for both clusters
 \newpage
 
  \item[\textbullet] For \( x^{(1)} \), C = 2: 
+
+\[
+\text{Prior: } p(C = 2) = 0.4
+\]
  
 \[
 \text{Likelihood: } p \left( x^{(1)} \mid C = 2 \right) = \frac{1}{2\pi} \frac{1}{\det(\Sigma_2)} \exp \left( -\frac{1}{2} \left( x^{(1)} - \mu^2 \right)^T \Sigma_2^{-1} \left( x^{(1)} - \mu^2 \right) \right)
@@ -105,7 +114,12 @@ C = 2:
 p(C = 2 \mid x^{(1)}) = \frac{p(C = 2, x^{(1)})}{p(C = 1, x^{(1)}) + p(C = 2, x^{(1)})} = \frac{0.0012}{0.095 + 0.0012} = 0.0125
 \]
 
- \item[\textbullet] For \( x^{(2)} \), C = 1: 
+
+\item[\textbullet] For \( x^{(2)} \), C = 1: 
+
+\[
+\text{Prior: } p(C = 1) = 0.6
+\]
 
 \[
 \text{Likelihood: } p \left( x^{(2)} \mid C = 1 \right) = \frac{1}{2\pi} \frac{1}{\det(\Sigma_1)} \exp \left( -\frac{1}{2} \left( x^{(2)} - \mu^1 \right)^T \Sigma_1^{-1} \left( x^{(2)} - \mu^1 \right) \right)
@@ -132,6 +146,10 @@ p(C = 2 \mid x^{(1)}) = \frac{p(C = 2, x^{(1)})}{p(C = 1, x^{(1)}) + p(C = 2, x^
  \item[\textbullet] For \( x^{(2)} \), C = 2: 
 
 \[
+\text{Prior: } p(C = 2) = 0.4
+\]
+
+\[
 \text{Likelihood: } p \left( x^{(2)} \mid C = 2 \right) = \frac{1}{2\pi} \frac{1}{\det(\Sigma_2)} \exp \left( -\frac{1}{2} \left( x^{(2)} - \mu^2 \right)^T \Sigma_2^{-1} \left( x^{(2)} - \mu^2 \right) \right)
 \]
 
@@ -144,7 +162,7 @@ p(C = 2 \mid x^{(1)}) = \frac{p(C = 2, x^{(1)})}{p(C = 1, x^{(1)}) + p(C = 2, x^
 \]
 
 \[
-= \frac{1}{2\pi} \exp(0) = \frac{1}{2\pi}
+= \frac{1}{2\pi} \exp(0) = \frac{1}{2\pi} = 0.159
 \]
 
 \[
@@ -160,10 +178,16 @@ p(C = 1 \mid x^{(2)}) = \frac{p(C = 1, x^{(2)})}{p(C = 1, x^{(2)}) + p(C = 2, x^
 
 C = 2:
 \[
-p(C = 1 \mid x^{(2)}) = \frac{p(C = 1, x^{(2)})}{p(C = 1, x^{(2)}) + p(C = 2, x^{(2)})} = \frac{0.0637}{0.0637 + 0.0018} = 0.9725
+p(C = 2 \mid x^{(2)}) = \frac{p(C = 1, x^{(2)})}{p(C = 1, x^{(2)}) + p(C = 2, x^{(2)})} = \frac{0.0637}{0.0637 + 0.0018} = 0.9725
 \]
 
+
  \item[\textbullet] For \( x^{(3)} \), C = 1: 
+
+
+\[
+\text{Prior: } p(C = 1) = 0.6
+\] 
 
 \[
 \text{Likelihood: } p \left( x^{(3)} \mid C = 1 \right) = \frac{1}{2\pi} \frac{1}{\det(\Sigma_1)} \exp \left( -\frac{1}{2} \left( x^{3} - \mu^1 \right)^T \Sigma_1^{-1} \left( x^{(3)} - \mu^1 \right) \right)
@@ -188,6 +212,10 @@ p(C = 1 \mid x^{(2)}) = \frac{p(C = 1, x^{(2)})}{p(C = 1, x^{(2)}) + p(C = 2, x^
  \item[\textbullet] For \( x^{(3)} \), C = 2: 
 
 \[
+\text{Prior: } p(C = 2) = 0.4
+\] 
+
+\[
 \text{Likelihood: } p \left( x^{(3)} \mid C = 2 \right) = \frac{1}{2\pi} \frac{1}{\det(\Sigma_2)} \exp \left( -\frac{1}{2} \left( x^{(3)} - \mu^2 \right)^T \Sigma_2^{-1} \left( x^{(3)} - \mu^2 \right) \right)
 \]
 
@@ -207,23 +235,24 @@ p(C = 1 \mid x^{(2)}) = \frac{p(C = 1, x^{(2)})}{p(C = 1, x^{(2)}) + p(C = 2, x^
 \text{Joint Probability: } p(C = 2, x^{(3)}) = p(C = 2) \cdot p(x^{(3)} \mid C = 2) = 0.4 \times 0.0155 = 0.0062
 \]
 
- Finally, we normalize both joint probabilities:
+For the final time, we maximize the joint probabilities:
 
 C = 1:
 \[
-p(C = 1 \mid x^{(3)}) = \frac{p(C = 1, x^{(2)})}{p(C = 1, x^{(2)}) + p(C = 2, x^{(2)})} = \frac{0.076}{0.076 + 0.0062} = 0.925
+p(C = 1 \mid x^{(3)}) = \frac{p(C = 1, x^{(3)})}{p(C = 1, x^{(3)}) + p(C = 2, x^{(3)})} = \frac{0.076}{0.076 + 0.0062} = 0.925
 \]
 
 C = 2:
 \[
-p(C = 1 \mid x^{(3)}) = \frac{p(C = 1, x^{(2)})}{p(C = 1, x^{(2)}) + p(C = 2, x^{(2)})} = \frac{0.0062}{0.0062 + 0.076} = 0.075
+p(C = 2 \mid x^{(3)}) = \frac{p(C = 1, x^{(3)})}{p(C = 1, x^{(3)}) + p(C = 2, x^{(3)})} = \frac{0.0062}{0.0062 + 0.076} = 0.075
 \]
+
 
 \end{itemize}
 
 \newpage
 
-Now, we need to re-estimate the cluster parameters so that they can be in pair with their assigned elements. To do that, we are using the following formulas:
+Now, for the \underline{maximization} phase, we need to re-estimate the cluster parameters so that they can be in pair with their assigned elements. To do that, we are using the following formulas (for the posteriors, covariance matrix and priors, respectively):
 
 \[
 \mu_c = \frac{\sum_{n=1}^{3} p(C = c \mid x^{(n)}) \cdot x^{(n)}}{\sum_{n=1}^{3} p(C = c \mid x^{(n)})}
@@ -233,8 +262,12 @@ Now, we need to re-estimate the cluster parameters so that they can be in pair w
 \Sigma_{c,ij} = \frac{\sum_{n=1}^{3} p(C = c \mid x^{(n)}) \left( \left( x^{(n)}_i - \mu_{c,i} \right) \left( x^{(n)}_j - \mu_{c,j} \right) \right)}{\sum_{n=1}^{3} p(C = c \mid x^{(n)})}
 \]
 
-\begin{itemize}
+\[
+P(C = c) = \frac{\sum_{n=1}^{N} p(C = c \mid x^{(n)})}{\sum_{l=1}^{k} \sum_{n=1}^{N} p(C = l \mid x^{(n)})}
+\]
 
+
+\begin{itemize}
 \item[\textbullet] For C = 1: 
 
 \textbf{For the likelihood:}
@@ -245,7 +278,7 @@ Now, we need to re-estimate the cluster parameters so that they can be in pair w
 
 {\scriptsize
 \[
-\Sigma_{1,11} = \frac{0.9875(1 - 0.733)(1 - 0.733) + 0.0275(-1 - 0.733)(-1 - 0.733) + 0.925(0.5 - 0.733)(0.5 - 0.733)}{0.9875 + 0.0275 + 0.925} = 0.086
+\Sigma_{1,11} = \frac{0.9875(1 - 0.733)(1 - 0.733) + 0.0275(-1 - 0.733)(-1 - 0.733) + 0.925(0.5 - 0.733)(0.5 - 0.733)}{0.9875 + 0.0275 + 0.925} = 0.1036
 \]
 
 
@@ -258,11 +291,11 @@ Now, we need to re-estimate the cluster parameters so that they can be in pair w
 \]
 }
 \[
-\Sigma_1 = \begin{pmatrix} 0.086 & 0.099 \\ 0.099 & 0.094 \end{pmatrix}
+\Sigma_1 = \begin{pmatrix} 0.1036 & 0.099 \\ 0.099 & 0.094 \end{pmatrix}
 \]
 
 \[
-\text{So, the new likelihood is: } p(x \mid C = 2) = N\left(\mu_1 = \begin{pmatrix} 0.733 \\ 0.757 \end{pmatrix}, \Sigma_1 = \begin{pmatrix} 0.086 & 0.099 \\ 0.099 & 0.094 \end{pmatrix}\right)
+\text{So, the new likelihood is: } p(x \mid C = 1) = \mathcal{N}\left(\mu_1 = \begin{pmatrix} 0.733 \\ 0.757 \end{pmatrix}, \Sigma_1 = \begin{pmatrix} 0.1036 & 0.099 \\ 0.099 & 0.094 \end{pmatrix}\right)
 \]
 
 \textbf{For the prior:}
@@ -272,7 +305,7 @@ p(C = 1) = \frac{p(C=1 \mid x^{(1)}) + p(C=1 \mid x^{(2)}) + p(C=1 \mid x^{(3)})
 \]
 }
 \[
-= \frac{0.9875 + 0.0275 + 0.925}{0.9875 + 0.0275 + 0.075 + 0.0125 + 0.9725 + 0.925} = 0.647 = \pi_1
+= \frac{0.9875 + 0.0275 + 0.925}{0.9875 + 0.0275 + 0.075 + 0.0125 + 0.9725 + 0.925} = \frac{1.94}{3} = 0.647 = \pi_1
 \]
 
 \newpage
@@ -294,7 +327,7 @@ p(C = 1) = \frac{p(C=1 \mid x^{(1)}) + p(C=1 \mid x^{(2)}) + p(C=1 \mid x^{(3)})
 \]
 
 \[
-\Sigma_{2,11} = \frac{0.0125(1 + 0.867)(1 + 0.867) + 0.9725(-1 + 0.867)(-1 + 0.867) + 0.075(0.55 + 0.867)(0.55 + 0.867)}{0.0125 + 0.9725 + 0.075} = 0.199
+\Sigma_{2,22} = \frac{0.0125(1 + 0.867)(1 + 0.867) + 0.9725(-1 + 0.867)(-1 + 0.867) + 0.075(0.55 + 0.867)(0.55 + 0.867)}{0.0125 + 0.9725 + 0.075} = 0.199
 \]
 }
 \[
@@ -302,7 +335,7 @@ p(C = 1) = \frac{p(C=1 \mid x^{(1)}) + p(C=1 \mid x^{(2)}) + p(C=1 \mid x^{(3)})
 \]
 
 \[
-\text{So, the new likelihood is: } p(x \mid C = 2) = N\left(\mu_2 = \begin{pmatrix} -0.870 \\ -0.867 \end{pmatrix}, \Sigma_2 = \begin{pmatrix} 3.38 & 0.0245 \\ 0.0245 & 3.38 \end{pmatrix}\right)
+\text{So, the new likelihood is: } p(x \mid C = 2) = \mathcal{N}\left(\mu_2 = \begin{pmatrix} -0.870 \\ -0.867 \end{pmatrix}, \Sigma_2 = \begin{pmatrix} 0.19 & 0.194 \\ 0.194 & 0.199 \end{pmatrix} \right)
 \]
 
 \textbf{For the prior:}
@@ -312,7 +345,7 @@ p(C = 2) = \frac{p(C=2 \mid x^{(1)}) + p(C=2 \mid x^{(2)}) + p(C=2 \mid x^{(3)})
 \]
 }
 \[
-= \frac{0.0125 + 0.9725 + 0.075}{0.9875 + 0.0275 + 0.075 + 0.0125 + 0.9725 + 0.925} = 0.353 = \pi_2
+= \frac{0.0125 + 0.9725 + 0.075}{3} = 0.353 = \pi_2
 \]
 
 \end{itemize}
@@ -322,7 +355,7 @@ As the exercise only asks for one iteration, we finish here.
 \newpage
 \subsection{Exercise b)}
 
-With a MAP assumption, we firstly do an assignment of observations to clusters:
+With a MAP\footnote{Maximum A Posteriori assumption} assumption (and avoiding the frequentist approach of MLE\footnote{Maximum Likelihood Estimation}), we firstly do a hard assignment of observations to clusters considering the values calculated before:
 
 \[
 p(C = 1 \mid x^{(1)}) = 0.9875, \: p(C = 2 \mid x^{(1)}) = 0.0125
@@ -337,7 +370,7 @@ p(C = 1 \mid x^{(3)}) = 0.925, \: p(C = 2 \mid x^{(3)}) = 0.075
 So, we assume that the cluster \(C_1\) contains the points \(x^{(1)}\) and \(x^{(3)}\) and the cluster
 \(C_2\) contains only the point \(x^{(2)}\). Therefore, the larger cluster is \(C_1\).
 \newline
-Now, we calculate the silhouette for the cluster \(C_1\) using the average of the silhouettes of \(x^{(1)}\) and \(x^{(3)}\)
+Now, we calculate the silhouette for the cluster \(C_1\) using the average of the silhouettes of \(x^{(1)}\) and \(x^{(3)}\) (while preserving the Euclidean distance assumption).
 
 \[
 s(x_{(1)}) = 1 - \frac{a(x^{(1)})}{b(x^{(1)})} = 1 - \frac{{||x^{(1)} - x^{(3)}||}_2}{{||x^{(2)} - x^{(1)}||}_2} = 1 - \frac{0.673}{2.828} = 0.762
@@ -352,6 +385,8 @@ So, the silhouette is:
 \[
 s(C_1) = \frac{s(x^{(1)}) + s(x^{(3)})}{2} = 0.725
 \]
+
+There is evidence for the cluster to be cohesive and well-separated.
 
 \newpage
 
@@ -368,17 +403,17 @@ By performing all the algorithms, we obtain the following silhouette values:
     \[ s = 0.283260460057237\]
 \end{itemize}
 
-As the silhouette is bigger in the k\_means algorithm, the k\_means is the better clustering.
+As the silhouette is bigger with the k\_means algorithm, k\_means is better for this dataset.
 
 \subsection{Exercise b)}
 
-By analyzing the graph below, we conclude that the three classes are separable, because colour overlay is not significative in this case.
-
+By analyzing the plot below, we conclude that the values overlap, so the three classes cannot be separated
+(the variance is not sufficient to perform classification in this dataset).
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{output.png}
-    \caption{Graph showing class separability}
+    \caption{PCA with 2 components on dataset wine}
 \end{figure}
 
 
@@ -388,48 +423,69 @@ By analyzing the graph below, we conclude that the three classes are separable, 
 \begin{itemize}
     \item For K-Means: 
     \[
-    s = 0.5722554756855064
+    s = 0.5602652844394511
     \]
     
     \item For EM-Clustering: 
     \[
-    s = 0.26233330799498905
+    s = 0.2623333079949892
     \]
 \end{itemize}
 
-The k\_means is still the better algorithm, because the silhouette is greater. Silhouette values vary due to random initialization in k\_means and EM-clustering, data structure and dimensionality reduction with PCA.
+The hard assignment performed by k-means continues to be the best solution (greater silhouette).
+However, the silhouette values are lower comparing with a),
+what indicates that the dimensionality reduction achieved with PCA
+entails an information loss that makes the clusters less distinct,
+and consequently worse.
+\\
+\\
+Furthermore, that loss indicates that the attributes with lower variance 
+(filtered by PCA) are the ones that made the clusters more different 
+(and with a greater silhouette).
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{output1.png}
-    \caption{K-Means clustering result}
+    \caption{K-Means clustering result for the wine dataset}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering
     \includegraphics[width=0.8\textwidth]{output2.png}
-    \caption{EM-Clustering result}
+    \caption{EM-Clustering result for the wine dataset}
 \end{figure}
 
-\newpage
+\clearpage
+
 \subsection{Exercise d)}
+Without PCA, k-means remains the best for this dataset too. \\
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{04_Work4/kmeans_no-pca.png}
+    \caption{shillouette = 0.6972646156059464}
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{04_Work4/EM_no-pca.png}
+    \caption{shillouette = 0.5325475269320484}
+\end{figure}
 
-\begin{itemize}
-    \item For K-Means: 
-    \[
-    s = 0.6972646156059464
-    \]
-    
-    \item For EM-Clustering: 
-    \[
-    s = 0.5315172918032405
-    \]
-\end{itemize}
+\clearpage
+The same after PCA, but this time with better results.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{04_Work4/kmeans_pca.png}
+    \caption{shillouette = 0.6984195775999954}
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{04_Work4/em_pca.png}
+    \caption{shillouette = 0.5865823748565955}
+\end{figure}
 
-The silhouette is bigger k\_means, so k\_means is still the best one.
+PCA leads to better clusters (more choesive and separated, with better shillouettes)
+by allowing a dimensionality reduction that specially benefits EM clustering
+(more specifically its Gaussian components, making it not overfit the small amount of data after PCA). Also, the attributes that differentiate the most the clusters are the ones with higher variance.
 
-\includegraphics[width=0.8\textwidth]{output3.png}\\[1ex]
-
-By comparating the ilhouette difference in both algorithms we would expect the same-class points to be closer to each other, which happens as we can see in the graph above.
 
 \end{document}
