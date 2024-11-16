@@ -1,7 +1,7 @@
 # IST_Machine-learning
 The 4 projects regarding IST's Machine Learning course. <br/>
 All of them graded with 20 / 20.<br/>
-Done by me and <a href="https://github.com/Martim1904"><a/>
+Done by me and <a href="https://github.com/Martim1904">Martim Gordino<a/>
 <br/>
 
 ## Submited reports
